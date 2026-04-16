@@ -35,16 +35,11 @@ const ProfilesSection = () => {
               rel="noreferrer"
               key={i}
               className="card"
-              initial={{ opacity: 0, scale: 0.8, y: 50 }}
+              initial={{ opacity: 0, scale: 0.9, y: 30 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1, type: "spring", stiffness: 100 }}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
               style={styles.profileCard}
-              whileHover={{ 
-                y: -10, 
-                borderColor: profile.color, 
-                boxShadow: `0 20px 40px ${profile.color.replace('1)', '0.15)')}, inset 0 0 20px ${profile.color.replace('1)', '0.05)')}` 
-              }}
             >
               <div style={styles.cardOverlay}></div>
               
@@ -95,7 +90,7 @@ const styles = {
     gap: '2rem',
   },
   profileCard: {
-    padding: '3rem 2rem',
+    padding: '2.5rem 1.5rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -104,8 +99,7 @@ const styles = {
     color: 'inherit',
     position: 'relative',
     overflow: 'hidden',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    backgroundColor: 'var(--bg-surface)'
+    transition: 'border-color 0.3s ease',
   },
   cardOverlay: {
     position: 'absolute',

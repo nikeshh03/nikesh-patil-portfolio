@@ -20,17 +20,16 @@ const ExperienceSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="surface"
+            className="card"
           >
             <div style={styles.iconWrapper}><User size={24} /></div>
             <h3 style={styles.boxTitle}>About Me</h3>
-            <p style={styles.text}>
-              I am an AI/ML Engineer with a profound passion for extracting actionable insights from complex datasets and building intelligent systems. 
-              Having recently graduated with a B.Tech in Artificial Intelligence and Machine Learning (Class of 2025), I have hands-on experience in <strong>computer vision</strong>, <strong>RAG-based LLMs</strong>, and end-to-end ML projects.
-            </p>
-            <p style={styles.text}>
-              I am currently seeking an <strong>AI/ML or Data Scientist</strong> role where I can build practical, data-driven intelligent systems and grow as a technical professional.
-            </p>
+            <ul style={styles.bulletList}>
+              <li><strong>AI/ML Engineer</strong> passionate about extracting actionable insights from complex datasets to build scalable intelligent systems.</li>
+              <li>B.Tech in <strong>Artificial Intelligence and Machine Learning</strong> (Class of 2025).</li>
+              <li>Hands-on experience developing <strong>computer vision</strong> pipelines, <strong>RAG-based LLMs</strong>, and end-to-end Machine Learning products.</li>
+              <li>Currently seeking an <strong>AI/ML or Data Scientist</strong> role to engineer practical, data-driven solutions and continue growing as a technical professional.</li>
+            </ul>
           </motion.div>
 
           <div style={styles.timeline}>
@@ -47,11 +46,35 @@ const ExperienceSection = () => {
                 <User size={16} />
               </div>
               <div style={styles.timelineContent} className="card">
-                <span style={styles.date}>Past 6 Months</span>
+                <span style={styles.date}>March 2025 - Present</span>
                 <h4 style={styles.role}>Freelance AI Developer</h4>
-                <p style={styles.timelineDesc}>
-                  Designed and deployed custom machine learning models, automated data pipelines, and intelligent web applications for independent clients.
-                </p>
+                <ul style={styles.bulletList}>
+                  <li>Designed and deployed custom machine learning models for independent clients.</li>
+                  <li>Automated complex data pipelines to streamline client workflows and enhance data visibility.</li>
+                  <li>Engineered and maintained intelligent web applications integrating bleeding-edge AI APIs.</li>
+                </ul>
+              </div>
+            </motion.div>
+
+            {/* Data Science Intern */}
+            <motion.div 
+              style={styles.timelineItem}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <div style={styles.timelineDot}>
+                <User size={16} />
+              </div>
+              <div style={styles.timelineContent} className="card">
+                <span style={styles.date}>Feb 2026 - Present</span>
+                <h4 style={styles.role}>Data Science Intern</h4>
+                <ul style={styles.bulletList}>
+                  <li>Designed and implemented a scalable <strong>Product Recommendation System</strong> from the ground up.</li>
+                  <li>Leveraged collaborative filtering and content-based approaches to personalize user experiences.</li>
+                  <li>Optimized overall user engagement and key platform metrics.</li>
+                </ul>
               </div>
             </motion.div>
             
@@ -61,7 +84,7 @@ const ExperienceSection = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
             >
               <div style={styles.timelineDot}>
                 <GraduationCap size={16} />
@@ -73,28 +96,6 @@ const ExperienceSection = () => {
                   R. C. Patel Institute of Technology, Shirpur
                   <br/>
                   Hands-on experience building machine learning systems and deploying computer vision pipelines.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* High School / General Education */}
-            <motion.div 
-              style={styles.timelineItem}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              <div style={styles.timelineDot}>
-                <GraduationCap size={16} />
-              </div>
-              <div style={styles.timelineContent} className="card">
-                <span style={styles.date}>2019 - 2021</span>
-                <h4 style={styles.role}>Higher Secondary Education</h4>
-                <p style={styles.timelineDesc}>
-                  Science Stream (PCM) • Excellence Award
-                  <br/>
-                  Graduated with top percentiles. Built a strong mathematical foundation crucial for algorithms and data science.
                 </p>
               </div>
             </motion.div>
@@ -113,7 +114,7 @@ const styles = {
     position: 'relative'
   },
   container: {
-    maxWidth: '1300px',
+    maxWidth: '1400px',
     margin: '0 auto',
     padding: '0 2rem',
   },
@@ -129,45 +130,60 @@ const styles = {
   },
   content: {
     display: 'flex',
-    gap: '4rem',
+    gap: '5rem',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    alignItems: 'stretch'
   },
   aboutBox: {
     flex: '1 1 400px',
     padding: '3rem',
-    height: 'fit-content'
+    height: 'auto',
+    alignSelf: 'flex-start'
   },
   iconWrapper: {
-    width: '50px',
-    height: '50px',
-    borderRadius: '12px',
+    width: '56px',
+    height: '56px',
+    borderRadius: '16px',
     background: 'rgba(0, 230, 118, 0.1)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     color: 'var(--primary)',
-    marginBottom: '1.5rem',
-    border: '1px solid rgba(0, 230, 118, 0.2)'
+    marginBottom: '2rem',
+    border: '1px solid rgba(0, 230, 118, 0.2)',
+    boxShadow: '0 8px 32px rgba(0, 230, 118, 0.1)'
   },
   boxTitle: {
-    fontSize: '1.8rem',
-    marginBottom: '1rem',
-    fontWeight: '700'
+    fontSize: '2rem',
+    marginBottom: '1.2rem',
+    fontWeight: '800',
+    letterSpacing: '-0.02em',
+    color: '#ffffff'
   },
   text: {
     color: 'var(--text-muted)',
     lineHeight: '1.8',
     fontSize: '1.1rem',
-    marginBottom: '1rem',
+    marginBottom: '1.5rem',
+  },
+  bulletList: {
+    paddingLeft: '1.4rem',
+    color: 'var(--text-muted)',
+    lineHeight: '1.8',
+    fontSize: '1.05rem',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.8rem',
+    listStyleType: 'disc'
   },
   timeline: {
     flex: '1 1 500px',
     display: 'flex',
     flexDirection: 'column',
-    gap: '2rem',
+    gap: '2.5rem',
     position: 'relative',
-    paddingLeft: '2rem',
+    paddingLeft: '3rem',
     borderLeft: '2px solid rgba(255,255,255,0.05)'
   },
   timelineItem: {
@@ -175,8 +191,8 @@ const styles = {
   },
   timelineDot: {
     position: 'absolute',
-    left: '-40px', /* paddingLeft (2rem=32px) + half dot width */
-    top: '20px',
+    left: '-67px',
+    top: '32px',
     width: '36px',
     height: '36px',
     borderRadius: '50%',
@@ -190,26 +206,28 @@ const styles = {
     boxShadow: '0 0 15px rgba(0,230,118,0.3)'
   },
   timelineContent: {
-    padding: '2rem',
+    padding: '2rem 2.5rem',
   },
   date: {
     color: 'var(--primary)',
-    fontSize: '0.85rem',
-    fontWeight: '600',
+    fontSize: '0.9rem',
+    fontWeight: '700',
     textTransform: 'uppercase',
-    letterSpacing: '1px',
+    letterSpacing: '1.5px',
     display: 'block',
     marginBottom: '0.5rem'
   },
   role: {
-    fontSize: '1.4rem',
+    fontSize: '1.5rem',
     fontWeight: '700',
-    marginBottom: '1rem'
+    marginBottom: '1rem',
+    letterSpacing: '-0.01em',
+    color: '#fff'
   },
   timelineDesc: {
     color: 'var(--text-muted)',
-    lineHeight: '1.6',
-    fontSize: '1rem'
+    lineHeight: '1.7',
+    fontSize: '1.05rem'
   }
 };
 

@@ -52,7 +52,6 @@ const CurrentFocusSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            style={{...styles.card, border: '1px solid var(--border-highlight)'}}
           >
             <div style={styles.iconHeader}>
               <div style={styles.iconWrapper}><Rocket size={28} /></div>
