@@ -1,4 +1,5 @@
 import Navbar from './components/Navbar'
+import { Analytics } from '@vercel/analytics/react'
 import HeroSection from './components/HeroSection'
 import SkillsSection from './components/SkillsSection'
 import CurrentFocusSection from './components/CurrentFocusSection'
@@ -24,6 +25,7 @@ function App() {
         <ContactSection />
       </main>
       <Footer />
+      <Analytics />
     </div>
   )
 }
