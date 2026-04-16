@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { BookOpen } from 'lucide-react';
 
@@ -8,14 +7,14 @@ const blogs = [
     date: 'Oct 12, 2023',
     readTime: '6 min read',
     snippet: 'Retrieval-Augmented Generation is transforming how we interact with LLMs. In this post, I break down how to implement a production-ready RAG pipeline using Llama-3 and vector databases from scratch...',
-    link: '#'
+    link: 'https://medium.com/@nikeshmpatil248'
   },
   {
     title: 'Deploying Scalable Machine Learning Models on AWS',
     date: 'Nov 05, 2023',
     readTime: '8 min read',
-    snippet: 'Taking a model from a Jupiter notebook to a scalable API can be daunting. I share my architectural blueprint for deploying PyTorch models using AWS SageMaker, Lambda, and API Gateway for zero-downtime inference...',
-    link: '#'
+    snippet: 'Taking a model from a Jupyter notebook to a scalable API can be daunting. I share my architectural blueprint for deploying PyTorch models using AWS SageMaker, Lambda, and API Gateway for zero-downtime inference...',
+    link: 'https://medium.com/@nikeshmpatil248'
   }
 ];
 
@@ -23,7 +22,7 @@ const BlogsSection = () => {
   return (
     <section id="blogs" style={styles.section}>
       <div style={styles.container}>
-         <div style={styles.header}>
+        <div style={styles.header}>
           <span style={{ color: 'var(--primary)', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase', fontSize: '0.9rem' }}>Publications</span>
           <h2 style={styles.title}>
             Medium <span style={{ color: 'transparent', WebkitTextStroke: '1px var(--text-main)' }}>Articles</span>
@@ -32,10 +31,12 @@ const BlogsSection = () => {
 
         <div style={styles.grid}>
           {blogs.map((blog, i) => (
-            <motion.a 
+            <motion.a
               href={blog.link}
-              className="card" 
-              key={i}
+              target="_blank"
+              rel="noreferrer"
+              className="card"
+              key={blog.title}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -49,7 +50,7 @@ const BlogsSection = () => {
               </div>
               <h3 style={styles.blogTitle}>{blog.title}</h3>
               <p style={styles.snippet}>{blog.snippet}</p>
-              
+
               <div style={styles.readMore}>
                 Read on Medium <BookOpen size={18} />
               </div>
@@ -103,13 +104,14 @@ const styles = {
     color: 'var(--primary)',
     fontSize: '0.9rem',
     fontWeight: '600',
-    fontFamily: 'JetBrains Mono',
+    fontFamily: 'JetBrains Mono, monospace',
     textTransform: 'uppercase',
   },
   metaDot: {
     width: '4px', height: '4px',
     borderRadius: '50%',
-    backgroundColor: 'var(--text-muted)'
+    backgroundColor: 'var(--text-muted)',
+    display: 'inline-block',
   },
   blogTitle: {
     fontSize: '2rem',

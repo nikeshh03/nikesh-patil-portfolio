@@ -1,10 +1,18 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, User, ArrowRight } from 'lucide-react';
+import { GraduationCap, User } from 'lucide-react';
 
 const ExperienceSection = () => {
   return (
     <section id="about" style={styles.section}>
+      <style>{`
+        @media (max-width: 900px) {
+          .exp-content { flex-direction: column !important; gap: 3rem !important; }
+          .exp-timeline { padding-left: 1.5rem !important; border-left: 2px solid rgba(255,255,255,0.05) !important; }
+          .exp-about-box { padding: 2rem !important; }
+          .exp-timeline-content { padding: 1.5rem !important; }
+          .exp-timeline-dot { left: -42px !important; width: 28px !important; height: 28px !important; }
+        }
+      `}</style>
       <div style={styles.container}>
         <div style={styles.header}>
           <span style={{ color: 'var(--primary)', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase', fontSize: '0.9rem' }}>Background</span>
@@ -13,14 +21,14 @@ const ExperienceSection = () => {
           </h2>
         </div>
 
-        <div style={styles.content}>
-          <motion.div 
+        <div style={styles.content} className="exp-content">
+          <motion.div
             style={styles.aboutBox}
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="card"
+            className="card exp-about-box"
           >
             <div style={styles.iconWrapper}><User size={24} /></div>
             <h3 style={styles.boxTitle}>About Me</h3>
@@ -32,21 +40,43 @@ const ExperienceSection = () => {
             </ul>
           </motion.div>
 
-          <div style={styles.timeline}>
+          <div style={styles.timeline} className="exp-timeline">
 
-            {/* Freelance Experience */}
-            <motion.div 
+            {/* Data Science Intern — most recent first */}
+            <motion.div
               style={styles.timelineItem}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <div style={styles.timelineDot}>
+              <div style={styles.timelineDot} className="exp-timeline-dot">
                 <User size={16} />
               </div>
-              <div style={styles.timelineContent} className="card">
-                <span style={styles.date}>March 2025 - Present</span>
+              <div style={styles.timelineContent} className="card exp-timeline-content">
+                <span style={styles.date}>Feb 2026 – Present</span>
+                <h4 style={styles.role}>Data Science Intern</h4>
+                <ul style={styles.bulletList}>
+                  <li>Designed and implemented a scalable <strong>Product Recommendation System</strong> from the ground up.</li>
+                  <li>Leveraged collaborative filtering and content-based approaches to personalize user experiences.</li>
+                  <li>Optimized overall user engagement and key platform metrics.</li>
+                </ul>
+              </div>
+            </motion.div>
+
+            {/* Freelance Experience */}
+            <motion.div
+              style={styles.timelineItem}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <div style={styles.timelineDot} className="exp-timeline-dot">
+                <User size={16} />
+              </div>
+              <div style={styles.timelineContent} className="card exp-timeline-content">
+                <span style={styles.date}>March 2025 – Present</span>
                 <h4 style={styles.role}>Freelance AI Developer</h4>
                 <ul style={styles.bulletList}>
                   <li>Designed and deployed custom machine learning models for independent clients.</li>
@@ -56,45 +86,23 @@ const ExperienceSection = () => {
               </div>
             </motion.div>
 
-            {/* Data Science Intern */}
-            <motion.div 
-              style={styles.timelineItem}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <div style={styles.timelineDot}>
-                <User size={16} />
-              </div>
-              <div style={styles.timelineContent} className="card">
-                <span style={styles.date}>Feb 2026 - Present</span>
-                <h4 style={styles.role}>Data Science Intern</h4>
-                <ul style={styles.bulletList}>
-                  <li>Designed and implemented a scalable <strong>Product Recommendation System</strong> from the ground up.</li>
-                  <li>Leveraged collaborative filtering and content-based approaches to personalize user experiences.</li>
-                  <li>Optimized overall user engagement and key platform metrics.</li>
-                </ul>
-              </div>
-            </motion.div>
-            
-            {/* Bachelor's Degree */}
-            <motion.div 
+            {/* Bachelor's Degree — oldest last */}
+            <motion.div
               style={styles.timelineItem}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <div style={styles.timelineDot}>
+              <div style={styles.timelineDot} className="exp-timeline-dot">
                 <GraduationCap size={16} />
               </div>
-              <div style={styles.timelineContent} className="card">
-                <span style={styles.date}>Dec 2021 - July 2025</span>
+              <div style={styles.timelineContent} className="card exp-timeline-content">
+                <span style={styles.date}>Dec 2021 – July 2025</span>
                 <h4 style={styles.role}>B.Tech in AI and Machine Learning</h4>
                 <p style={styles.timelineDesc}>
                   R. C. Patel Institute of Technology, Shirpur
-                  <br/>
+                  <br />
                   Hands-on experience building machine learning systems and deploying computer vision pipelines.
                 </p>
               </div>
@@ -133,7 +141,7 @@ const styles = {
     gap: '5rem',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignItems: 'stretch'
+    alignItems: 'flex-start'
   },
   aboutBox: {
     flex: '1 1 400px',
@@ -160,12 +168,6 @@ const styles = {
     fontWeight: '800',
     letterSpacing: '-0.02em',
     color: '#ffffff'
-  },
-  text: {
-    color: 'var(--text-muted)',
-    lineHeight: '1.8',
-    fontSize: '1.1rem',
-    marginBottom: '1.5rem',
   },
   bulletList: {
     paddingLeft: '1.4rem',

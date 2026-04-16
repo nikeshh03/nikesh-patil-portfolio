@@ -1,168 +1,162 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Database, LineChart, Cpu, Network, 
-  FileSearch, Camera, Settings, Braces, 
-  BrainCircuit, LayoutGrid 
+import {
+  Database, LineChart, Cpu, Network,
+  FileSearch, Camera, Settings, Braces,
+  BrainCircuit, LayoutGrid
 } from 'lucide-react';
 
 const skillsData = [
-  { 
-    category: 'Data Science & CV', 
+  {
+    category: 'Data Science & CV',
     desc: 'Extracting patterns and building vision pipelines.',
-    items: ['Python', 'SQL', 'NumPy', 'Pandas', 'OpenCV', 'YOLOv8', 'EDA', 'Feature Eng.'] 
+    items: ['Python', 'SQL', 'NumPy', 'Pandas', 'OpenCV', 'YOLOv8', 'EDA', 'Feature Eng.']
   },
-  { 
-    category: 'Machine & Deep Learning', 
+  {
+    category: 'Machine & Deep Learning',
     desc: 'Training robust predictive AI models.',
-    items: ['Scikit-learn', 'TensorFlow', 'Keras', 'Model Training', 'Cross-Validation', 'PyTorch'] 
+    items: ['Scikit-learn', 'TensorFlow', 'Keras', 'Model Training', 'Cross-Validation', 'PyTorch']
   },
-  { 
-    category: 'Generative AI & NLP', 
+  {
+    category: 'Generative AI & NLP',
     desc: 'Architecting intelligent language systems.',
-    items: ['HuggingFace', 'LangChain', 'RAG', 'NLTK', 'Vector Search', 'LLMs'] 
+    items: ['HuggingFace', 'LangChain', 'RAG', 'NLTK', 'Vector Search', 'LLMs']
   },
-  { 
-    category: 'MLOps & Cloud', 
+  {
+    category: 'MLOps & Cloud',
     desc: 'Deploying and scaling machine learning.',
-    items: ['Streamlit', 'MLflow', 'Databricks', 'AWS', 'PostgreSQL', 'Git', 'Matplotlib'] 
+    items: ['Streamlit', 'MLflow', 'Databricks', 'AWS', 'PostgreSQL', 'Git', 'Matplotlib']
   },
 ];
 
-const getIcon = (name) => {
-  const simpleIcons = {
-    'Python': 'python',
-    'NumPy': 'numpy',
-    'Pandas': 'pandas',
-    'OpenCV': 'opencv',
-    'Scikit-learn': 'scikitlearn',
-    'TensorFlow': 'tensorflow',
-    'Keras': 'keras',
-    'PyTorch': 'pytorch',
-    'HuggingFace': 'huggingface',
-    'LangChain': 'langchain',
-    'Streamlit': 'streamlit',
-    'AWS': 'amazonwebservices',
-    'PostgreSQL': 'postgresql',
-    'Git': 'git',
-    'Databricks': 'databricks',
-  };
+const simpleIconsMap = {
+  'Python': 'python',
+  'NumPy': 'numpy',
+  'Pandas': 'pandas',
+  'OpenCV': 'opencv',
+  'Scikit-learn': 'scikitlearn',
+  'TensorFlow': 'tensorflow',
+  'Keras': 'keras',
+  'PyTorch': 'pytorch',
+  'HuggingFace': 'huggingface',
+  'LangChain': 'langchain',
+  'Streamlit': 'streamlit',
+  'AWS': 'amazonwebservices',
+  'PostgreSQL': 'postgresql',
+  'Git': 'git',
+  'Databricks': 'databricks',
+};
 
-  if (simpleIcons[name]) {
-    // 00e676 is the exact hex of var(--primary) without #
-    return <img src={`https://cdn.simpleicons.org/${simpleIcons[name]}/00e676`} alt={name} className="skill-logo" />;
+const lucideIconsMap = {
+  'SQL': Database,
+  'EDA': LineChart,
+  'Feature Eng.': Settings,
+  'YOLOv8': Camera,
+  'Model Training': Cpu,
+  'Cross-Validation': Network,
+  'RAG': FileSearch,
+  'NLTK': Braces,
+  'Vector Search': Database,
+  'LLMs': BrainCircuit,
+  'MLflow': LayoutGrid,
+  'Matplotlib': LineChart,
+};
+
+const SkillIcon = ({ name }) => {
+  if (simpleIconsMap[name]) {
+    return (
+      <img
+        src={`https://cdn.simpleicons.org/${simpleIconsMap[name]}/00e676`}
+        alt={`${name} icon`}
+        className="skill-logo"
+        onError={(e) => { e.target.style.display = 'none'; }}
+      />
+    );
   }
-
-  // Fallbacks using Lucide
-  const FallbackIcon = {
-    'SQL': Database,
-    'EDA': LineChart,
-    'Feature Eng.': Settings,
-    'YOLOv8': Camera,
-    'Model Training': Cpu,
-    'Cross-Validation': Network,
-    'RAG': FileSearch,
-    'NLTK': Braces,
-    'Vector Search': Database,
-    'LLMs': BrainCircuit,
-    'MLflow': LayoutGrid,
-    'Matplotlib': LineChart
-  }[name] || Cpu;
-
-  return <FallbackIcon className="skill-logo-svg" />;
+  const LucideIcon = lucideIconsMap[name] || Cpu;
+  return <LucideIcon className="skill-logo-svg" aria-hidden="true" />;
 };
 
 const SkillsSection = () => {
   return (
     <section id="skills" style={styles.section}>
-      <style>
-        {`
+      <style>{`
+        .skill-row {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+          padding: 2.5rem 0;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .skill-row:last-child {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+        .category-info {
+          flex: 0 0 auto;
+        }
+        @media (min-width: 860px) {
           .skill-row {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            padding: 2.5rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            flex-direction: row;
+            gap: 3rem;
+            align-items: flex-start;
           }
-          .skill-row:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-          }
-            
           .category-info {
-            flex: 0 0 auto;
+            flex: 0 0 240px;
           }
-          
-          @media (min-width: 860px) {
-            .skill-row {
-              flex-direction: row;
-              gap: 3rem;
-              align-items: flex-start;
-            }
-            .category-info {
-              flex: 0 0 240px;
-            }
-          }
-          
-          .category-title {
-            font-size: 1.35rem;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.5px;
-          }
-          
-          .category-desc {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-          }
-          
-          .skills-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            flex: 1;
-            align-content: flex-start;
-          }
-          
-          .skill-pill {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.6rem 1.2rem;
-            background: rgba(255,255,255,0.015);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 12px;
-            color: var(--text-muted);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: default;
-          }
-          
-          .skill-pill:hover {
-            background: rgba(0, 230, 118, 0.05);
-            border-color: rgba(0, 230, 118, 0.4);
-            color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 230, 118, 0.1);
-          }
-          
-          .skill-logo {
-            width: 20px;
-            height: 20px;
-            opacity: 0.9;
-          }
-          
-          .skill-logo-svg {
-            width: 20px;
-            height: 20px;
-            color: var(--primary);
-            opacity: 0.9;
-          }
-        `}
-      </style>
+        }
+        .category-title {
+          font-size: 1.35rem;
+          font-weight: 600;
+          color: #fff;
+          margin-bottom: 0.5rem;
+          letter-spacing: -0.5px;
+        }
+        .category-desc {
+          font-size: 0.95rem;
+          color: var(--text-muted);
+          line-height: 1.5;
+        }
+        .skills-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.8rem;
+          flex: 1;
+          align-content: flex-start;
+        }
+        .skill-pill {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          padding: 0.6rem 1.2rem;
+          background: rgba(255,255,255,0.015);
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 12px;
+          color: var(--text-muted);
+          font-weight: 500;
+          font-size: 0.95rem;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          cursor: default;
+          user-select: text;
+        }
+        .skill-pill:hover {
+          background: rgba(0, 230, 118, 0.05);
+          border-color: rgba(0, 230, 118, 0.4);
+          color: #fff;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 15px rgba(0, 230, 118, 0.1);
+        }
+        .skill-logo {
+          width: 20px;
+          height: 20px;
+          opacity: 0.9;
+        }
+        .skill-logo-svg {
+          width: 20px;
+          height: 20px;
+          color: var(--primary);
+          opacity: 0.9;
+        }
+      `}</style>
 
       <div style={styles.container}>
         <div style={styles.header}>
@@ -174,27 +168,27 @@ const SkillsSection = () => {
 
         <div style={styles.listContainer}>
           {skillsData.map((group, idx) => (
-            <motion.div 
-              key={idx} 
+            <motion.div
+              key={group.category}
               className="skill-row"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
             >
               <div className="category-info">
                 <h3 className="category-title">{group.category}</h3>
                 <p className="category-desc">{group.desc}</p>
               </div>
-              
+
               <div className="skills-list">
-                {group.items.map((item, i) => (
-                  <motion.div 
-                    key={i} 
+                {group.items.map((item) => (
+                  <motion.div
+                    key={item}
                     className="skill-pill"
                     whileHover={{ scale: 1.02 }}
                   >
-                    {getIcon(item)}
+                    <SkillIcon name={item} />
                     <span>{item}</span>
                   </motion.div>
                 ))}

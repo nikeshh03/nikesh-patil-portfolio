@@ -1,10 +1,14 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Code, BookOpen, BrainCircuit, Rocket } from 'lucide-react';
 
 const CurrentFocusSection = () => {
   return (
     <section id="focus" style={styles.section}>
+      <style>{`
+        @media (max-width: 768px) {
+          .focus-card { padding: 1.5rem !important; }
+        }
+      `}</style>
       <div style={styles.container}>
         <div style={styles.header}>
           <span style={{ color: 'var(--primary)', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase', fontSize: '0.9rem' }}>Present Activity</span>
@@ -15,61 +19,61 @@ const CurrentFocusSection = () => {
 
         <div style={styles.grid}>
           {/* Currently Learning */}
-          <motion.div 
+          <motion.div
             style={styles.card}
-            className="surface"
+            className="surface focus-card"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
             <div style={styles.iconHeader}>
-              <div style={styles.iconWrapper}><BrainCircuit size={28} /></div>
+              <div style={styles.iconWrapper}><BrainCircuit size={28} aria-hidden="true" /></div>
               <h3 style={styles.cardTitle}>Currently Learning</h3>
             </div>
-            
+
             <ul style={styles.list}>
               <li style={styles.listItem}>
-                <BookOpen size={18} color="var(--primary)" />
-                <span><strong style={{color: '#fff'}}>Advanced RAG Pipelines:</strong> Exploring GraphRAG, dense retrieval techniques, and highly-contextual LLM routing.</span>
+                <BookOpen size={18} color="var(--primary)" aria-hidden="true" />
+                <span><strong style={{ color: '#fff' }}>Advanced RAG Pipelines:</strong> Exploring GraphRAG, dense retrieval techniques, and highly-contextual LLM routing.</span>
               </li>
               <li style={styles.listItem}>
-                <BookOpen size={18} color="var(--primary)" />
-                <span><strong style={{color: '#fff'}}>Distributed Training:</strong> Implementing PyTorch FSDP (Fully Sharded Data Parallel) for training large-scale transformers.</span>
+                <BookOpen size={18} color="var(--primary)" aria-hidden="true" />
+                <span><strong style={{ color: '#fff' }}>Distributed Training:</strong> Implementing PyTorch FSDP (Fully Sharded Data Parallel) for training large-scale transformers.</span>
               </li>
               <li style={styles.listItem}>
-                <BookOpen size={18} color="var(--primary)" />
-                <span><strong style={{color: '#fff'}}>Rust for AI:</strong> Writing highly-performant data loaders and inference modules.</span>
+                <BookOpen size={18} color="var(--primary)" aria-hidden="true" />
+                <span><strong style={{ color: '#fff' }}>Rust for AI:</strong> Writing highly-performant data loaders and inference modules.</span>
               </li>
             </ul>
           </motion.div>
 
           {/* Currently Building */}
-          <motion.div 
+          <motion.div
             style={styles.card}
-            className="surface"
+            className="surface focus-card"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
             <div style={styles.iconHeader}>
-              <div style={styles.iconWrapper}><Rocket size={28} /></div>
+              <div style={styles.iconWrapper}><Rocket size={28} aria-hidden="true" /></div>
               <h3 style={styles.cardTitle}>Currently Building</h3>
             </div>
-            
+
             <ul style={styles.list}>
               <li style={styles.listItem}>
-                <Code size={18} color="var(--primary)" />
-                <span><strong style={{color: '#fff'}}>Personal LLM Agent Framework:</strong> An open-source toolkit for connecting small local models (like Llama 3 8B) to daily workflow APIs.</span>
+                <Code size={18} color="var(--primary)" aria-hidden="true" />
+                <span><strong style={{ color: '#fff' }}>Personal LLM Agent Framework:</strong> An open-source toolkit for connecting small local models (like Llama 3 8B) to daily workflow APIs.</span>
               </li>
               <li style={styles.listItem}>
-                <Code size={18} color="var(--primary)" />
-                <span><strong style={{color: '#fff'}}>Real-time Audio Processing Pipeline:</strong> A passion project utilizing Whisper for live translation and transcription running on Edge devices.</span>
+                <Code size={18} color="var(--primary)" aria-hidden="true" />
+                <span><strong style={{ color: '#fff' }}>Real-time Audio Processing Pipeline:</strong> A passion project utilizing Whisper for live translation and transcription running on Edge devices.</span>
               </li>
               <li style={styles.listItem}>
-                <Code size={18} color="var(--primary)" />
-                <span><strong style={{color: '#fff'}}>Data Science Portfolio V2:</strong> Continually refining the very site you are exploring!</span>
+                <Code size={18} color="var(--primary)" aria-hidden="true" />
+                <span><strong style={{ color: '#fff' }}>Data Science Portfolio V2:</strong> Continually refining the very site you are exploring!</span>
               </li>
             </ul>
           </motion.div>
@@ -101,7 +105,7 @@ const styles = {
   },
   grid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(380px, 100%), 1fr))',
     gap: '3rem',
   },
   card: {

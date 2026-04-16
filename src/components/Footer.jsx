@@ -1,4 +1,3 @@
-import React from 'react';
 import { Zap } from 'lucide-react';
 
 const Footer = () => {
@@ -7,18 +6,18 @@ const Footer = () => {
       <div style={styles.container}>
         <div style={styles.topSection}>
           <div style={styles.brand}>
-            <Zap size={22} color="var(--primary)" />
+            <Zap size={22} color="var(--primary)" aria-hidden="true" />
             <span style={styles.logoText}>Nikesh Patil</span>
           </div>
-          
-          <div style={styles.links}>
-            <a href="#about" style={styles.link}>Journey</a>
-            <a href="#skills" style={styles.link}>Expertise</a>
+
+          <nav style={styles.links} aria-label="Footer navigation">
+            <a href="#about"    style={styles.link}>Journey</a>
+            <a href="#skills"   style={styles.link}>Expertise</a>
             <a href="#projects" style={styles.link}>Portfolio</a>
             <a href="#profiles" style={styles.link}>Network</a>
-          </div>
+          </nav>
         </div>
-        
+
         <div style={styles.bottomSection}>
           <p style={styles.copyright}>© {new Date().getFullYear()} Nikesh Patil. All rights reserved.</p>
           <p style={styles.credit}>Made with ☕ and Claude.</p>
@@ -85,12 +84,12 @@ const styles = {
   copyright: {
     color: '#666',
     fontSize: '0.85rem',
-    fontFamily: 'JetBrains Mono',
+    fontFamily: 'JetBrains Mono, monospace',
   },
   credit: {
     color: 'var(--text-muted)',
     fontSize: '0.85rem',
-    fontFamily: 'JetBrains Mono',
+    fontFamily: 'JetBrains Mono, monospace',
   }
 };
 

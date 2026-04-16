@@ -1,12 +1,16 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
 const HeroSection = () => {
   return (
-    <section style={styles.section} className="hero-section">
-      {/* Background Grid & Glow Overlay */}
-      <div style={styles.bgOverlay}></div>
-
+    <section id="hero" style={styles.section} className="hero-section">
+      <style>{`
+        @media (max-width: 768px) {
+          .hero-section { padding-top: 100px !important; }
+          .hero-title { white-space: normal !important; font-size: clamp(2.2rem, 10vw, 4rem) !important; }
+          .hero-buttons { flex-direction: column !important; }
+          .hero-buttons a { width: 100%; justify-content: center; }
+        }
+      `}</style>
       <div style={styles.container}>
         <motion.div
           style={styles.textContent}
@@ -15,7 +19,8 @@ const HeroSection = () => {
           transition={{ duration: 0.8 }}
         >
           <motion.h1
-            style={{ ...styles.title, textTransform: 'none', color: 'var(--primary)', lineHeight: '1.1', fontSize: 'clamp(3.5rem, 8vw, 6.5rem)', marginBottom: '1.5rem', whiteSpace: 'nowrap' }}
+            className="hero-title"
+            style={{ ...styles.title }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
@@ -33,13 +38,14 @@ const HeroSection = () => {
             AI Engineer & Developer
           </motion.p>
           <motion.div
+            className="hero-buttons"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
-            style={{ marginTop: '2.5rem', display: 'flex', gap: '1rem' }}
+            style={{ marginTop: '2.5rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}
           >
             <a href="#contact" className="btn btn-primary">Contact Me</a>
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="btn btn-outline">View Github</a>
+            <a href="https://github.com/nikeshh03" target="_blank" rel="noreferrer" className="btn btn-outline">View Github</a>
           </motion.div>
         </motion.div>
       </div>
@@ -55,20 +61,7 @@ const styles = {
     paddingTop: '80px',
     position: 'relative',
     overflow: 'hidden',
-    backgroundColor: 'var(--bg-main)'
-  },
-  bgOverlay: {
-    position: 'absolute',
-    top: 0, left: 0, right: 0, bottom: 0,
-    backgroundImage: `
-      radial-gradient(ellipse at center, rgba(0,230,118,0.15) 0%, transparent 60%),
-      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)
-    `,
-    backgroundSize: '100% 100%, 40px 40px, 40px 40px',
-    backgroundPosition: 'center center',
-    zIndex: 1,
-    opacity: 0.25
+    backgroundColor: '#060608' // Solid, deep black matching var(--bg-main)
   },
   container: {
     width: '100%',
@@ -86,9 +79,14 @@ const styles = {
     zIndex: 10,
   },
   title: {
+    fontFamily: '"Outfit", sans-serif',
     fontWeight: '900',
     letterSpacing: '-0.04em',
-    color: '#fff',
+    color: 'var(--primary)',
+    lineHeight: '1.1',
+    fontSize: 'clamp(1.5rem, 7vw, 6rem)',
+    marginBottom: '1.5rem',
+    whiteSpace: 'nowrap'
   },
   description: {
     fontSize: '1.2rem',
