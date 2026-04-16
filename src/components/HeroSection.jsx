@@ -3,7 +3,39 @@ import { motion } from 'framer-motion';
 const HeroSection = () => {
   return (
     <section id="hero" style={styles.section} className="hero-section">
+      <div className="hero-bg">
+        <div className="hero-grid"></div>
+        <div className="hero-glow"></div>
+      </div>
       <style>{`
+        .hero-bg {
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          z-index: 0;
+          pointer-events: none;
+          background-color: var(--bg-main);
+        }
+        .hero-grid {
+          position: absolute;
+          top: 0; left: 0; width: 100%; height: 100%;
+          background-size: 60px 60px;
+          background-image: 
+            linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+          mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+          -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        }
+        .hero-glow {
+          position: absolute;
+          top: 40%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 150vw;
+          height: 120vh;
+          background: radial-gradient(ellipse at center, rgba(0, 230, 118, 0.12) 0%, rgba(0, 230, 118, 0.03) 40%, transparent 70%);
+          mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+          -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        }
         @media (max-width: 768px) {
           .hero-section { padding-top: 100px !important; }
           .hero-title { white-space: normal !important; font-size: clamp(2.2rem, 10vw, 4rem) !important; }
@@ -61,7 +93,7 @@ const styles = {
     paddingTop: '80px',
     position: 'relative',
     overflow: 'hidden',
-    backgroundColor: '#060608' // Solid, deep black matching var(--bg-main)
+    backgroundColor: 'var(--bg-main)'
   },
   container: {
     width: '100%',
