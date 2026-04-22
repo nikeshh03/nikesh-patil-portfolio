@@ -45,7 +45,7 @@ const ContactSection = () => {
                 <Github size={24} />
               </motion.a>
               <motion.a
-                href="https://linkedin.com/in/nikesh-patil"
+                href="https://www.linkedin.com/in/nikeshpatil/"
                 target="_blank"
                 rel="noreferrer"
                 style={styles.socialIcon}
