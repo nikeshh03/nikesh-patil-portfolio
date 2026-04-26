@@ -7,6 +7,7 @@ import ExperienceSection from './components/ExperienceSection'
 import CertificationsSection from './components/CertificationsSection'
 import ProjectsSection from './components/ProjectsSection'
 import BlogsSection from './components/BlogsSection'
+import ProfilesSection from './components/ProfilesSection'
 import ContactSection from './components/ContactSection'
 import Footer from './components/Footer'
 
@@ -22,6 +23,7 @@ function App() {
         <CertificationsSection />
         <ProjectsSection />
         <BlogsSection />
+        <ProfilesSection />
         <ContactSection />
       </main>
       <Footer />

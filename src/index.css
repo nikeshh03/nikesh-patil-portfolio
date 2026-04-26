@@ -52,6 +52,14 @@ a:hover {
   color: var(--primary);
 }
 
+/* Keyboard focus — visible only when using keyboard, not mouse */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 .text-gradient {
   background: linear-gradient(180deg, #FFFFFF 0%, #A1A1AA 100%);
   -webkit-background-clip: text;
@@ -81,6 +89,7 @@ a:hover {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  will-change: transform;
 }
 
 .card::before {

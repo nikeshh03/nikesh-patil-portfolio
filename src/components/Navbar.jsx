@@ -47,13 +47,13 @@ const Navbar = () => {
 
         {/* Desktop CTA */}
         <div className="nav-desktop-cta" style={styles.navRight}>
+          {/* TODO: Replace href with your actual Google Drive resume link:
+               href="https://drive.google.com/file/d/YOUR_FILE_ID/view" */}
           <a
-            href="https://drive.google.com/file/d/your-resume-file-id/view"
-            target="_blank"
-            rel="noreferrer"
+            href="#contact"
             className="btn btn-outline"
             style={{ fontSize: '0.9rem', padding: '0.6rem 1.4rem' }}
-            aria-label="Open resume in new tab"
+            aria-label="View resume"
           >
             Resume
           </a>
@@ -66,6 +66,7 @@ const Navbar = () => {
           onClick={() => setMenuOpen(prev => !prev)}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={menuOpen}
+          aria-controls="mobile-nav"
         >
           <span style={{ ...styles.bar, transform: menuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none' }} />
           <span style={{ ...styles.bar, opacity: menuOpen ? 0 : 1 }} />
@@ -75,14 +76,13 @@ const Navbar = () => {
 
       {/* Mobile drawer */}
       {menuOpen && (
-        <div className="nav-mobile-menu" style={styles.mobileMenu} role="navigation" aria-label="Mobile navigation">
+        <div id="mobile-nav" className="nav-mobile-menu" style={styles.mobileMenu} role="navigation" aria-label="Mobile navigation">
           {navLinks.map(({ label, href }) => (
             <a key={label} href={href} style={styles.mobileLink} onClick={closeMenu}>{label}</a>
           ))}
+          {/* TODO: Same as above — replace with actual resume link */}
           <a
-            href="https://drive.google.com/file/d/your-resume-file-id/view"
-            target="_blank"
-            rel="noreferrer"
+            href="#contact"
             className="btn btn-outline"
             style={{ marginTop: '1rem', width: '100%', justifyContent: 'center' }}
             onClick={closeMenu}

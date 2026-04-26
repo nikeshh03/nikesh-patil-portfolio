@@ -57,7 +57,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
-            Hey... I'am Nikesh<br />
+            Hey... I'm Nikesh<br />
             Helping systems evolve <br />
             a little better.
           </motion.h1>

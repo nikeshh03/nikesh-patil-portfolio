@@ -1,9 +1,5 @@
 import { motion } from 'framer-motion';
-import {
-  Database, LineChart, Cpu, Network,
-  FileSearch, Camera, Settings, Braces,
-  BrainCircuit, LayoutGrid
-} from 'lucide-react';
+import SkillIcon from './shared/SkillIcon';
 
 const skillsData = [
   {
@@ -27,54 +23,6 @@ const skillsData = [
     items: ['Streamlit', 'MLflow', 'Databricks', 'AWS', 'PostgreSQL', 'Git', 'Matplotlib']
   },
 ];
-
-const simpleIconsMap = {
-  'Python': 'python',
-  'NumPy': 'numpy',
-  'Pandas': 'pandas',
-  'OpenCV': 'opencv',
-  'Scikit-learn': 'scikitlearn',
-  'TensorFlow': 'tensorflow',
-  'Keras': 'keras',
-  'PyTorch': 'pytorch',
-  'HuggingFace': 'huggingface',
-  'LangChain': 'langchain',
-  'Streamlit': 'streamlit',
-  'AWS': 'amazonwebservices',
-  'PostgreSQL': 'postgresql',
-  'Git': 'git',
-  'Databricks': 'databricks',
-};
-
-const lucideIconsMap = {
-  'SQL': Database,
-  'EDA': LineChart,
-  'Feature Eng.': Settings,
-  'YOLOv8': Camera,
-  'Model Training': Cpu,
-  'Cross-Validation': Network,
-  'RAG': FileSearch,
-  'NLTK': Braces,
-  'Vector Search': Database,
-  'LLMs': BrainCircuit,
-  'MLflow': LayoutGrid,
-  'Matplotlib': LineChart,
-};
-
-const SkillIcon = ({ name }) => {
-  if (simpleIconsMap[name]) {
-    return (
-      <img
-        src={`https://cdn.simpleicons.org/${simpleIconsMap[name]}/00e676`}
-        alt={`${name} icon`}
-        className="skill-logo"
-        onError={(e) => { e.target.style.display = 'none'; }}
-      />
-    );
-  }
-  const LucideIcon = lucideIconsMap[name] || Cpu;
-  return <LucideIcon className="skill-logo-svg" aria-hidden="true" />;
-};
 
 const SkillsSection = () => {
   return (

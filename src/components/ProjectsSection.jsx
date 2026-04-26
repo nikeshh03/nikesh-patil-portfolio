@@ -1,36 +1,6 @@
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Camera, BrainCircuit, FileSearch, Database, Eye } from 'lucide-react';
-const simpleIconsMap = {
-  'Python': 'python',
-  'Scikit-learn': 'scikitlearn',
-  'Pandas': 'pandas',
-  'Streamlit': 'streamlit',
-  'OpenCV': 'opencv',
-  'HuggingFace': 'huggingface'
-};
-
-const lucideIconsMap = {
-  'YOLOv8': Camera,
-  'Computer Vision': Eye,
-  'LLMs': BrainCircuit,
-  'RAG': FileSearch,
-  'FAISS': Database
-};
-
-const SkillIcon = ({ name }) => {
-  if (simpleIconsMap[name]) {
-    return (
-      <img
-        src={`https://cdn.simpleicons.org/${simpleIconsMap[name]}/00e676`}
-        alt={`${name} icon`}
-        className="skill-logo"
-        onError={(e) => { e.target.style.display = 'none'; }}
-      />
-    );
-  }
-  const LucideIcon = lucideIconsMap[name] || Database;
-  return <LucideIcon className="skill-logo-svg" aria-hidden="true" />;
-};
+import { ArrowUpRight } from 'lucide-react';
+import SkillIcon from './shared/SkillIcon';
 
 const projects = [
   {
@@ -110,7 +80,7 @@ const ProjectsSection = () => {
           opacity: 0.9;
         }
       `}</style>
-      
+
       <div style={styles.container}>
         <div style={styles.header}>
           <h2 className="section-title" style={styles.sectionTitle}>Featured Projects</h2>
@@ -151,7 +121,7 @@ const ProjectsSection = () => {
                 <div style={styles.tagsContainer}>
                   {project.tags.map(tag => (
                     <span key={tag} style={styles.tag}>
-                      <SkillIcon name={tag} />
+                      <SkillIcon name={tag} imgSize={14} />
                       {tag}
                     </span>
                   ))}
