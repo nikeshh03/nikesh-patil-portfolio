@@ -1,0 +1,8 @@
+/* ── Responsive layout ────────────────────────── */
+@media (max-width: 900px) {
+  .exp-content           { flex-direction: column !important; gap: 3rem !important; }
+  .exp-timeline          { padding-left: 1.5rem !important; border-left: 2px solid rgba(255, 255, 255, 0.05) !important; }
+  .exp-about-box         { padding: 2rem !important; }
+  .exp-timeline-content  { padding: 1.5rem !important; }
+  .exp-timeline-dot      { left: -42px !important; width: 28px !important; height: 28px !important; }
+}

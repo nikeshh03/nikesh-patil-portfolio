@@ -1,0 +1,66 @@
+/* ── Row layout ───────────────────────────────── */
+.cert-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+}
+
+.cert-row:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.cert-row:hover .cert-title {
+  color: var(--primary);
+}
+
+/* ── Arrow icon — CSS-only hover (no inline color needed) ── */
+.cert-arrow {
+  color: var(--text-muted);
+  transition: color 0.3s, transform 0.3s;
+}
+
+.cert-row:hover .cert-arrow {
+  color: var(--primary);
+  transform: translate(2px, -2px);
+}
+
+/* ── Icon wrapper ─────────────────────────────── */
+.cert-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+
+.cert-row:hover .cert-icon-wrapper {
+  background: rgba(0, 230, 118, 0.1);
+  color: var(--primary);
+}
+
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 768px) {
+  .cert-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .cert-right {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
+  }
+}

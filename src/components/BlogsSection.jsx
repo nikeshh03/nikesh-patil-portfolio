@@ -1,66 +1,48 @@
 import { motion } from 'framer-motion';
 import { BookOpen } from 'lucide-react';
+import { blogs } from '../data/blogs';
 
-const blogs = [
-  {
-    title: 'Mastering RAG with Llama-3: A Practical Guide',
-    date: 'Oct 12, 2023',
-    readTime: '6 min read',
-    snippet: 'Retrieval-Augmented Generation is transforming how we interact with LLMs. In this post, I break down how to implement a production-ready RAG pipeline using Llama-3 and vector databases from scratch...',
-    link: 'https://medium.com/@nikeshmpatil248'
-  },
-  {
-    title: 'Deploying Scalable Machine Learning Models on AWS',
-    date: 'Nov 05, 2023',
-    readTime: '8 min read',
-    snippet: 'Taking a model from a Jupyter notebook to a scalable API can be daunting. I share my architectural blueprint for deploying PyTorch models using AWS SageMaker, Lambda, and API Gateway for zero-downtime inference...',
-    link: 'https://medium.com/@nikeshmpatil248'
-  }
-];
-
-const BlogsSection = () => {
-  return (
-    <section id="blogs" style={styles.section}>
-      <div style={styles.container}>
-        <div style={styles.header}>
-          <span style={{ color: 'var(--primary)', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase', fontSize: '0.9rem' }}>Publications</span>
-          <h2 style={styles.title}>
-            Medium <span style={{ color: 'transparent', WebkitTextStroke: '1px var(--text-main)' }}>Articles</span>
-          </h2>
-        </div>
-
-        <div style={styles.grid}>
-          {blogs.map((blog, i) => (
-            <motion.a
-              href={blog.link}
-              target="_blank"
-              rel="noreferrer"
-              className="card"
-              key={blog.title}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.2 }}
-              style={styles.blogCard}
-            >
-              <div style={styles.metaRow}>
-                <span style={styles.metaData}>{blog.date}</span>
-                <span style={styles.metaDot}></span>
-                <span style={styles.metaData}>{blog.readTime}</span>
-              </div>
-              <h3 style={styles.blogTitle}>{blog.title}</h3>
-              <p style={styles.snippet}>{blog.snippet}</p>
-
-              <div style={styles.readMore}>
-                Read on Medium <BookOpen size={18} />
-              </div>
-            </motion.a>
-          ))}
-        </div>
+const BlogsSection = () => (
+  <section id="blogs" style={styles.section}>
+    <div style={styles.container}>
+      <div style={styles.header}>
+        <span style={styles.label}>Publications</span>
+        <h2 style={styles.title}>
+          Medium <span style={styles.outlineText}>Articles</span>
+        </h2>
       </div>
-    </section>
-  );
-};
+
+      <div style={styles.grid}>
+        {blogs.map((blog, i) => (
+          <motion.a
+            href={blog.link}
+            target="_blank"
+            rel="noreferrer"
+            className="card"
+            key={blog.id}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: i * 0.2 }}
+            style={styles.blogCard}
+            aria-label={`Read: ${blog.title}`}
+          >
+            <div style={styles.metaRow}>
+              <span style={styles.metaData}>{blog.date}</span>
+              <span style={styles.metaDot} aria-hidden="true" />
+              <span style={styles.metaData}>{blog.readTime}</span>
+            </div>
+            <h3 style={styles.blogTitle}>{blog.title}</h3>
+            <p style={styles.snippet}>{blog.snippet}</p>
+            <div style={styles.readMore}>
+              Read on Medium <BookOpen size={18} aria-hidden="true" />
+            </div>
+          </motion.a>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 const styles = {
   section: {
@@ -76,11 +58,22 @@ const styles = {
     textAlign: 'center',
     marginBottom: '4rem',
   },
+  label: {
+    color: 'var(--primary)',
+    fontWeight: '600',
+    letterSpacing: '2px',
+    textTransform: 'uppercase',
+    fontSize: '0.9rem',
+  },
   title: {
     fontSize: 'clamp(2.5rem, 5vw, 4rem)',
     fontWeight: '900',
     marginTop: '0.5rem',
-    letterSpacing: '-1px'
+    letterSpacing: '-1px',
+  },
+  outlineText: {
+    color: 'transparent',
+    WebkitTextStroke: '1px var(--text-main)',
   },
   grid: {
     display: 'flex',
@@ -90,9 +83,7 @@ const styles = {
   blogCard: {
     display: 'block',
     textDecoration: 'none',
-    padding: '3rem',
     color: 'inherit',
-    border: '1px solid rgba(255,255,255,0.05)',
   },
   metaRow: {
     display: 'flex',
@@ -104,11 +95,12 @@ const styles = {
     color: 'var(--primary)',
     fontSize: '0.9rem',
     fontWeight: '600',
-    fontFamily: 'JetBrains Mono, monospace',
+    fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
     textTransform: 'uppercase',
   },
   metaDot: {
-    width: '4px', height: '4px',
+    width: '4px',
+    height: '4px',
     borderRadius: '50%',
     backgroundColor: 'var(--text-muted)',
     display: 'inline-block',
@@ -117,13 +109,13 @@ const styles = {
     fontSize: '2rem',
     fontWeight: '800',
     marginBottom: '1rem',
-    lineHeight: '1.3'
+    lineHeight: '1.3',
   },
   snippet: {
     color: 'var(--text-muted)',
     fontSize: '1.1rem',
     lineHeight: '1.7',
-    marginBottom: '2rem'
+    marginBottom: '2rem',
   },
   readMore: {
     display: 'flex',
@@ -133,7 +125,7 @@ const styles = {
     fontWeight: '600',
     fontSize: '1.05rem',
     transition: 'gap 0.3s ease',
-  }
+  },
 };
 
 export default BlogsSection;

@@ -1,0 +1,11 @@
+/* ── Visibility toggles ──────────────────────── */
+@media (max-width: 768px) {
+  .nav-desktop-links { display: none !important; }
+  .nav-desktop-cta   { display: none !important; }
+  .nav-hamburger     { display: flex !important; }
+}
+
+@media (min-width: 769px) {
+  .nav-mobile-menu { display: none !important; }
+  .nav-hamburger   { display: none !important; }
+}

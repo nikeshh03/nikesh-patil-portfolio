@@ -1,22 +1,21 @@
 import { useState, useEffect } from 'react';
 import { Zap } from 'lucide-react';
+import './Navbar.css';
 
-const navLinks = [
-  { label: 'Journey', href: '#about' },
+const NAV_LINKS = [
+  { label: 'Journey',   href: '#about' },
   { label: 'Expertise', href: '#skills' },
   { label: 'Portfolio', href: '#projects' },
-  { label: 'Network', href: '#profiles' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Network',   href: '#profiles' },
+  { label: 'Contact',   href: '#contact' },
 ];
 
 const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled,  setScrolled]  = useState(false);
+  const [menuOpen,  setMenuOpen]  = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -25,34 +24,40 @@ const Navbar = () => {
 
   return (
     <>
-      <nav style={{
-        ...styles.navbar,
-        background: scrolled ? 'rgba(6, 6, 8, 0.85)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom: scrolled ? '1px solid var(--border-color)' : '1px solid transparent',
-        padding: scrolled ? '1rem 2rem' : '1.5rem 2rem',
-      }}>
+      <nav
+        style={{
+          ...styles.navbar,
+          background:        scrolled ? 'rgba(6, 6, 8, 0.85)' : 'transparent',
+          backdropFilter:    scrolled ? 'blur(12px)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
+          borderBottom:      scrolled ? '1px solid var(--border-color)' : '1px solid transparent',
+          padding:           scrolled ? '1rem 2rem' : '1.5rem 2rem',
+        }}
+      >
         <div style={styles.logoContainer}>
           <Zap size={28} color="var(--primary)" aria-hidden="true" />
           <span style={styles.logoText}>Nikesh Patil</span>
         </div>
 
         {/* Desktop nav links */}
-        <div className="nav-desktop-links" style={styles.navLinks} role="navigation" aria-label="Main navigation">
-          {navLinks.map(({ label, href }) => (
+        <div
+          className="nav-desktop-links"
+          style={styles.navLinks}
+          role="navigation"
+          aria-label="Main navigation"
+        >
+          {NAV_LINKS.map(({ label, href }) => (
             <a key={label} href={href} style={styles.link}>{label}</a>
           ))}
         </div>
 
         {/* Desktop CTA */}
+        {/* TODO: Replace href with actual Google Drive resume link */}
         <div className="nav-desktop-cta" style={styles.navRight}>
-          {/* TODO: Replace href with your actual Google Drive resume link:
-               href="https://drive.google.com/file/d/YOUR_FILE_ID/view" */}
           <a
             href="#contact"
             className="btn btn-outline"
-            style={{ fontSize: '0.9rem', padding: '0.6rem 1.4rem' }}
+            style={styles.resumeBtn}
             aria-label="View resume"
           >
             Resume
@@ -63,7 +68,7 @@ const Navbar = () => {
         <button
           className="nav-hamburger"
           style={styles.hamburger}
-          onClick={() => setMenuOpen(prev => !prev)}
+          onClick={() => setMenuOpen((prev) => !prev)}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
@@ -76,34 +81,27 @@ const Navbar = () => {
 
       {/* Mobile drawer */}
       {menuOpen && (
-        <div id="mobile-nav" className="nav-mobile-menu" style={styles.mobileMenu} role="navigation" aria-label="Mobile navigation">
-          {navLinks.map(({ label, href }) => (
+        <div
+          id="mobile-nav"
+          className="nav-mobile-menu"
+          style={styles.mobileMenu}
+          role="navigation"
+          aria-label="Mobile navigation"
+        >
+          {NAV_LINKS.map(({ label, href }) => (
             <a key={label} href={href} style={styles.mobileLink} onClick={closeMenu}>{label}</a>
           ))}
           {/* TODO: Same as above — replace with actual resume link */}
           <a
             href="#contact"
             className="btn btn-outline"
-            style={{ marginTop: '1rem', width: '100%', justifyContent: 'center' }}
+            style={styles.mobileCta}
             onClick={closeMenu}
           >
             Resume
           </a>
         </div>
       )}
-
-      {/* Responsive styles */}
-      <style>{`
-        @media (max-width: 768px) {
-          .nav-desktop-links { display: none !important; }
-          .nav-desktop-cta { display: none !important; }
-          .nav-hamburger { display: flex !important; }
-        }
-        @media (min-width: 769px) {
-          .nav-mobile-menu { display: none !important; }
-          .nav-hamburger { display: none !important; }
-        }
-      `}</style>
     </>
   );
 };
@@ -147,6 +145,10 @@ const styles = {
     alignItems: 'center',
     gap: '1rem',
   },
+  resumeBtn: {
+    fontSize: '0.9rem',
+    padding: '0.6rem 1.4rem',
+  },
   hamburger: {
     display: 'none',
     flexDirection: 'column',
@@ -188,6 +190,11 @@ const styles = {
     padding: '0.5rem 0',
     borderBottom: '1px solid var(--border-color)',
     transition: 'color 0.3s ease',
+  },
+  mobileCta: {
+    marginTop: '1rem',
+    width: '100%',
+    justifyContent: 'center',
   },
 };
 

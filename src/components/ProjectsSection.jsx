@@ -1,142 +1,216 @@
-import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FolderOpen, ArrowUpRight } from 'lucide-react';
 import SkillIcon from './shared/SkillIcon';
+import { categories } from '../data/projects';
+import { FONT_SANS } from '../constants/tokens';
+import './ProjectsSection.css';
 
-const projects = [
-  {
-    title: 'HR Decision Engine',
-    description: 'An advanced predictive analytics system for enterprise workforce management.',
-    features: [
-      'Engineered an attrition prediction model achieving 85% accuracy.',
-      'Developed interactive dashboard for real-time HR insights.',
-      'Optimized robust data pipelines using Pandas and NumPy.'
-    ],
-    tags: ['Python', 'Scikit-learn', 'Pandas', 'Streamlit'],
-    metric: '85% Accuracy',
-    link: 'https://github.com/nikeshh03'
-  },
-  {
-    title: 'Real-Time Face Recognition',
-    description: 'A high-performance computer vision pipeline for identity verification.',
-    features: [
-      'Implemented YOLOv8 for rapid object detection and localization.',
-      'Achieved 20-25 FPS real-time processing on standard CPU hardware.',
-      'Integrated vector similarity matching for facial embeddings.'
-    ],
-    tags: ['YOLOv8', 'OpenCV', 'Computer Vision'],
-    metric: '20-25 FPS',
-    link: 'https://github.com/nikeshh03'
-  },
-  {
-    title: 'RAG Research Paper Analyzer',
-    description: 'An intelligent document assistant designed to eliminate AI hallucinations during research.',
-    features: [
-      'Built a robust QA system utilizing Retrieval-Augmented Generation.',
-      'Integrated HuggingFace embeddings with FAISS for rapid vector search.',
-      'Containerized and deployed as a lightweight standalone web application.'
-    ],
-    tags: ['LLMs', 'RAG', 'HuggingFace', 'FAISS'],
-    metric: 'Zero Hallucinations',
-    link: 'https://github.com/nikeshh03'
-  }
-];
+// ── Sub-components ─────────────────────────────────────────────────────────────
 
-const ProjectsSection = () => {
+/**
+ * ProjectCard — renders a single project card.
+ * `accent` may come from the category OR from project.accent (when in "All" tab).
+ */
+const ProjectCard = ({ project, accent, index }) => {
+  const resolvedAccent = project.accent ?? accent;
+
   return (
-    <section id="projects" style={styles.section}>
-      <style>{`
-        .project-card-ref {
-          display: flex;
-          flex-direction: column;
-          text-decoration: none;
-          color: inherit;
-        }
-        .project-card-ref:hover .arrow-icon {
-          color: #fff !important;
-          transform: translate(2px, -2px);
-        }
-        @media (max-width: 768px) {
-          .project-footer {
-            flex-direction: column !important;
-            align-items: flex-start !important;
-            gap: 1.5rem;
-          }
-          .project-card-ref {
-            padding: 1.5rem !important;
-          }
-          .section-title {
-            font-size: 2rem !important;
-          }
-        }
-        .skill-logo {
-          width: 14px;
-          height: 14px;
-          opacity: 0.9;
-        }
-        .skill-logo-svg {
-          width: 14px;
-          height: 14px;
-          color: var(--primary);
-          opacity: 0.9;
-        }
-      `}</style>
+    <motion.a
+      href={project.link}
+      target="_blank"
+      rel="noreferrer"
+      className="card project-card-ref"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.08 }}
+      aria-label={`View ${project.title} on GitHub`}
+    >
+      <div style={styles.cardHeader}>
+        <h3 style={styles.projectTitle}>{project.title}</h3>
+        <ArrowUpRight className="proj-arrow-icon" size={20} aria-hidden="true" />
+      </div>
 
-      <div style={styles.container}>
-        <div style={styles.header}>
-          <h2 className="section-title" style={styles.sectionTitle}>Featured Projects</h2>
-        </div>
+      <div style={styles.descriptionContainer}>
+        <p style={styles.description}>{project.description}</p>
+        {project.features && (
+          <ul style={styles.featuresList}>
+            {project.features.map((feature) => (
+              <li key={feature} style={styles.featureItem}>
+                <span style={{ ...styles.bullet, color: resolvedAccent }} aria-hidden="true">▹</span>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
 
-        <div style={styles.list}>
-          {projects.map((project, i) => (
-            <motion.a
-              href={project.link}
-              target="_blank"
-              rel="noreferrer"
-              key={project.title}
-              className="card project-card-ref"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-            >
-              <div style={styles.cardHeader}>
-                <h3 style={styles.projectTitle}>{project.title}</h3>
-                <ArrowUpRight className="arrow-icon" size={20} color="var(--text-muted)" style={{ transition: 'all 0.3s' }} />
-              </div>
-
-              <div style={styles.descriptionContainer}>
-                <p style={styles.description}>{project.description}</p>
-                {project.features && (
-                  <ul style={styles.featuresList}>
-                    {project.features.map((feature, idx) => (
-                      <li key={idx} style={styles.featureItem}>
-                        <span style={styles.bullet}>▹</span> {feature}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-
-              <div className="project-footer" style={styles.footer}>
-                <div style={styles.tagsContainer}>
-                  {project.tags.map(tag => (
-                    <span key={tag} style={styles.tag}>
-                      <SkillIcon name={tag} imgSize={14} />
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div style={styles.metric}>
-                  {project.metric}
-                </div>
-              </div>
-            </motion.a>
+      <div className="project-footer">
+        <div style={styles.tagsContainer}>
+          {project.tags.map((tag) => (
+            <span key={tag} style={styles.tag}>
+              <SkillIcon name={tag} imgSize={14} />
+              {tag}
+            </span>
           ))}
         </div>
+        <div style={{ ...styles.metric, color: resolvedAccent }}>{project.metric}</div>
+      </div>
+    </motion.a>
+  );
+};
+
+/** EmptyState — shown when a category has no projects yet. */
+const EmptyState = ({ accent, tabId }) => (
+  <motion.div
+    key={`empty-${tabId}`}
+    style={styles.emptyState}
+    initial={{ opacity: 0, scale: 0.97 }}
+    animate={{ opacity: 1, scale: 1 }}
+    exit={{ opacity: 0, scale: 0.97 }}
+    transition={{ duration: 0.3 }}
+  >
+    <div
+      className="empty-state-icon-wrap"
+      style={{ background: `${accent}15`, border: `1px solid ${accent}30` }}
+    >
+      <FolderOpen size={32} style={{ color: accent }} aria-hidden="true" />
+    </div>
+    <p style={styles.emptyTitle}>Coming Soon</p>
+    <p style={styles.emptySubtitle}>Projects in this category are on the way. Check back soon!</p>
+  </motion.div>
+);
+
+// ── Main Component ─────────────────────────────────────────────────────────────
+
+const ProjectsSection = () => {
+  // Default to the "All" tab so visitors immediately see all work
+  const [activeTab, setActiveTab] = useState('all');
+
+  // Fallback to first category if activeTab ever goes stale (e.g. data changes)
+  const activeCategory = useMemo(
+    () => categories.find((c) => c.id === activeTab) ?? categories[0],
+    [activeTab]
+  );
+
+  return (
+    <section id="projects" style={styles.section}>
+      <div style={styles.container}>
+
+        {/* ── Header ── */}
+        <div style={styles.header}>
+          <motion.h2
+            className="section-title"
+            style={styles.sectionTitle}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            Projects
+          </motion.h2>
+          <motion.p
+            style={styles.subtitle}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            A curated collection of things I&apos;ve built — from trained models to shipped products.
+          </motion.p>
+        </div>
+
+        {/* ── Tab Bar ── */}
+        <motion.div
+          className="proj-tab-bar"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          role="tablist"
+          aria-label="Project categories"
+        >
+          {categories.map((cat) => {
+            const Icon = cat.icon;
+            const isActive = activeTab === cat.id;
+            return (
+              <button
+                key={cat.id}
+                id={`proj-tab-${cat.id}`}
+                className={`proj-tab-btn${isActive ? ' active' : ''}`}
+                style={isActive ? {
+                  background: cat.accent,
+                  color: '#000',
+                  boxShadow: `0 0 18px ${cat.accent}55`,
+                } : undefined}
+                onClick={() => setActiveTab(cat.id)}
+                aria-selected={isActive}
+                aria-controls={`proj-panel-${cat.id}`}
+                role="tab"
+              >
+                <Icon size={15} aria-hidden="true" />
+                {cat.label}
+              </button>
+            );
+          })}
+        </motion.div>
+
+        {/* ── Category description ── */}
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={`desc-${activeTab}`}
+            style={styles.categoryDesc}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.25 }}
+          >
+            {activeCategory.description}
+          </motion.p>
+        </AnimatePresence>
+
+        {/* ── Accent divider ── */}
+        <div
+          style={{
+            ...styles.divider,
+            background: `linear-gradient(90deg, ${activeCategory.accent}55 0%, transparent 100%)`,
+          }}
+        />
+
+        {/* ── Projects grid / empty state ── */}
+        <AnimatePresence mode="wait">
+          {activeCategory.projects.length === 0 ? (
+            <EmptyState accent={activeCategory.accent} tabId={activeTab} />
+          ) : (
+            <motion.div
+              key={`grid-${activeTab}`}
+              id={`proj-panel-${activeTab}`}
+              role="tabpanel"
+              aria-labelledby={`proj-tab-${activeTab}`}
+              style={styles.grid}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {activeCategory.projects.map((project, i) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  accent={activeCategory.accent}
+                  index={i}
+                />
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
       </div>
     </section>
   );
 };
+
+// ── Styles ─────────────────────────────────────────────────────────────────────
 
 const styles = {
   section: {
@@ -144,36 +218,74 @@ const styles = {
     backgroundColor: 'var(--bg-main)',
   },
   container: {
-    maxWidth: '1000px', // Perfect width for a nice single column reading experience
+    maxWidth: '1000px',
     margin: '0 auto',
     padding: '0 2rem',
   },
   header: {
-    marginBottom: '3rem',
+    marginBottom: '2.5rem',
   },
   sectionTitle: {
     fontSize: '2.5rem',
     fontWeight: '800',
-    color: 'var(--primary)', // Green text from the mockup
-    letterSpacing: '-0.5px'
+    color: 'var(--primary)',
+    letterSpacing: '-0.5px',
+    marginBottom: '0.6rem',
   },
-  list: {
+  subtitle: {
+    color: 'var(--text-muted)',
+    fontSize: '1.05rem',
+    lineHeight: '1.6',
+    maxWidth: '520px',
+  },
+  categoryDesc: {
+    color: 'var(--text-muted)',
+    fontSize: '0.92rem',
+    lineHeight: '1.6',
+    marginBottom: '1.2rem',
+  },
+  divider: {
+    height: '1px',
+    borderRadius: '2px',
+    marginBottom: '2.5rem',
+  },
+  grid: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '1.5rem', // Margin between cards
+    gap: '1.5rem',
+  },
+  emptyState: {
+    textAlign: 'center',
+    padding: '4rem 2rem',
+    border: '1px dashed rgba(255,255,255,0.08)',
+    borderRadius: '24px',
+    background: 'rgba(255,255,255,0.02)',
+  },
+  emptyTitle: {
+    fontSize: '1.2rem',
+    fontWeight: '700',
+    color: 'var(--text-main)',
+    marginBottom: '0.5rem',
+  },
+  emptySubtitle: {
+    color: 'var(--text-muted)',
+    fontSize: '0.92rem',
+    maxWidth: '320px',
+    margin: '0 auto',
+    lineHeight: '1.6',
   },
   cardHeader: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: '1.2rem'
+    marginBottom: '1.2rem',
   },
   projectTitle: {
     fontSize: '1.6rem',
     fontWeight: '700',
-    color: '#fff',
+    color: 'var(--text-main)',
     letterSpacing: '-0.3px',
-    lineHeight: '1.2'
+    lineHeight: '1.2',
   },
   descriptionContainer: {
     marginBottom: '2rem',
@@ -183,7 +295,7 @@ const styles = {
     fontSize: '1.1rem',
     lineHeight: '1.6',
     marginBottom: '1rem',
-    maxWidth: '92%' // Leaves a little room on the right side
+    maxWidth: '92%',
   },
   featuresList: {
     listStyle: 'none',
@@ -202,15 +314,9 @@ const styles = {
     lineHeight: '1.5',
   },
   bullet: {
-    color: 'var(--primary)',
     fontWeight: 'bold',
-    marginTop: '2px', // Align with text
-  },
-  footer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 'auto'
+    marginTop: '2px',
+    flexShrink: 0,
   },
   tagsContainer: {
     display: 'flex',
@@ -224,18 +330,17 @@ const styles = {
     padding: '0.4rem 0.8rem',
     background: 'rgba(255, 255, 255, 0.05)',
     border: '1px solid rgba(255, 255, 255, 0.05)',
-    borderRadius: '6px', // Slight rounding
+    borderRadius: '6px',
     fontSize: '0.85rem',
     color: '#e5e7eb',
     fontWeight: '500',
-    fontFamily: '"Plus Jakarta Sans", sans-serif'
+    fontFamily: FONT_SANS,
   },
   metric: {
-    color: 'var(--primary)',
     fontSize: '0.95rem',
     fontWeight: '500',
-    fontFamily: '"Plus Jakarta Sans", sans-serif'
-  }
+    fontFamily: FONT_SANS,
+  },
 };
 
 export default ProjectsSection;

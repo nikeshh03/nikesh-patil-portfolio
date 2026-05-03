@@ -1,0 +1,4 @@
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 768px) {
+  .focus-card { padding: 1.5rem !important; }
+}

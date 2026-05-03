@@ -1,0 +1,84 @@
+/* ── Layout ───────────────────────────────────── */
+.skill-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.skill-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.category-info {
+  flex: 0 0 auto;
+}
+
+@media (min-width: 860px) {
+  .skill-row      { flex-direction: row; gap: 3rem; align-items: flex-start; }
+  .category-info  { flex: 0 0 240px; }
+}
+
+/* ── Typography ───────────────────────────────── */
+.category-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
+}
+
+.category-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── Skills list ──────────────────────────────── */
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  flex: 1;
+  align-content: flex-start;
+}
+
+.skill-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+  user-select: text;
+}
+
+.skill-pill:hover {
+  background: rgba(0, 230, 118, 0.05);
+  border-color: rgba(0, 230, 118, 0.4);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 230, 118, 0.1);
+}
+
+/* ── Skill icon sizes ─────────────────────────── */
+.skill-logo {
+  width: 20px;
+  height: 20px;
+  opacity: 0.9;
+}
+
+.skill-logo-svg {
+  width: 20px;
+  height: 20px;
+  color: var(--primary);
+  opacity: 0.9;
+}
